@@ -8,10 +8,32 @@
 
 <body>
 {% filter markdown %}
-#{{productName}}                    - {{productPrice}}
+<h1> <i>GEEKSTORE</i></h1>
+<h2>{{productCategory}} - <i>{{productName}}</i> <br>
+<small>preço: ${{productPrice}}.00</small>
+</h2>
+
+
+Usuário:
+Sexo: {{usrSex}} &nbsp;&nbsp;&nbsp;&nbsp; Idade: {{usrAge}}<br>
+Renda: {{usrInc}} &nbsp;&nbsp;&nbsp;&nbsp; Escolaridade: {{usrEdu}}
+
+
+<ul>
+    {% for rec in recData %}
+    <li><b> Compre junto: {{rec['productName']}} e ganhe {{rec['discount']}}% de desconto   </b><br>
+      preço: ${{rec['productPrice']}}.00  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      Retorno Esperado da Venda: ${{rec['printableRet']}}
+    </li>
+{% endfor %}
+<ul>
+
+{% for i in [1,2,3,4] %}
+<br><p>
+{% endfor %}
+<small>(copyright: <a href="http://VelhoGeek.com.br"> VelhoGeek.com.br</a>)</small>
 
 {% endfilter %}
 </body>
 </html>
-
 

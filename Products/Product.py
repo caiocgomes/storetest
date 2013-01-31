@@ -7,6 +7,12 @@ class Product(namedtuple('Product', "prodid name category price") ):
         cls._lastid += 1
         return super(Product, cls).__new__(cls, cls._lastid, name, category, price)
 
+    def toDict(self):
+        return {'productName': self.name,
+                'productPrice': self.price,
+                'productCategory': self.category}
+
+
 nbPear   = Product(u'Notebook Pear', u'Informatica', 3500)
 nbHal    = Product(u'Notebook HAL', u'Informatica', 2500)
 youPhone = Product(u'Celular Pear youPhone', u'Telefonia', 1800)
@@ -28,6 +34,6 @@ godBatt  = Product(u'Jogo - God of Battle', u'Jogos', 50)
 receitas = Product(u'Livro "Receitas para Solteiros"', u'Livros', 25)
 godLivro = Product(u'Livro "God of Battle - Estrategias"',  u'Livros', 25)
 livroPai = Product(u'Livro "Como Nao Matar o Seu Bebe: a Arte da Guerra para pais solteiros"', u"Livros", 25)
-livroEsp = Product(u'Livro "Espeleologia Comparada: Introducao ao Calculo Setorial Multiplexado"', u'Livros', 50)
+livroEsp = Product(u'Livro "Espeleologia Comparada: Introducao ao Calculo Multiplexado"', u'Livros', 50)
 allProducts = [nbPear, nbHal, youPhone, robot, youClone, busPhone, mike, rei, earphone, mouseChp, mouseMH, boyBand, jazz, fraldas, carrinho, cerveja, vinho, godBatt, receitas, godLivro, livroPai, livroEsp]
 

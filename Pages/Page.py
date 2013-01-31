@@ -14,6 +14,6 @@ class Page(object):
 
     def render(self):
         self.data = self.getData()
-        return self.renderer(self.template, self.data)
+        return self.renderer(self.template, **self.data)
 
 

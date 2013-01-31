@@ -10,6 +10,7 @@ class Probability(object):
         self.conn = mdb.connect('cpbigdata.c3bofhlifl67.sa-east-1.rds.amazonaws.com','root','mula1777-','recomendation')
         self.cursor = self.conn.cursor()
 
+    @cache
     def FindProbabilityBuy(self,features,product,recom,discount):
         probFeature={}
         for feature in features:
@@ -31,6 +32,7 @@ class Probability(object):
         d = c * probTotal['0']/probTotal['1'] + 1
         return 1.0 / d
 
+    @cache
     def FindProbabilityFeature(self,feature,featValue,product,recom,discount,compra):
         query = "SELECT count from recomendation.features where featName = \'{featname}\' and featValue = \'{featValue}\' and discount = \'{discount}\' and prod = {product} and rec = {rec} and compra = {compra}".format(featValue=featValue,discount=discount,featname=feature,product=product,rec=recom,compra= compra)
         self.cursor.execute(query)
@@ -45,11 +47,3 @@ class Probability(object):
         return float(result[0][0]) if len(result) > 0 else 0.0
 
 prob = Probability()
-
-for i in xrange(1,22):
-    for j in xrange(1, 22):
-        #print prob.FindProbabilityTotal(i, j, '0.15', 0)
-        #print prob.FindProbabilityTotal(i, j, '0.15', 1)
-        #print prob.FindProbabilityFeature('sex', 'F', i, j, '0.15', 0)
-        #print prob.FindProbabilityFeature('sex', 'F', i, j, '0.15', 1)
-        print  i, j, prob.FindProbabilityBuy({'sex': 'M', 'age':1, 'inc':1, 'edu':1}, i, j, '0.15')

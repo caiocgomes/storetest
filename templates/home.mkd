@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Velho Geek</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='foghorn.css') }}">
+</head>
+
+<body>
+{% filter markdown %}
+
+<h1> <i>GEEKSTORE</i> <br> &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  <small> A loja do Velho Geek </small></h1>
+
+<h2> Produtos:</h2>
+
+<ul>
+{% for prod in products %}
+    <li>
+        <a href = "/product/{{prod.prodid}}"> {{prod.name}}</a>
+    </li>
+{% endfor %}
+</ul>
+
+{% for i in [1,2,3,4] %}
+<br><p>
+{% endfor %}
+
+<small>(copyright: <a href="http://VelhoGeek.com.br"> VelhoGeek.com.br</a>)</small>
+
+{% endfilter %}
+</body>
+</html>
+

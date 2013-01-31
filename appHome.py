@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flaskext.markdown import Markdown
-from Pages import ProductPage
+from Pages import ProductPage, Home
 from Products import allProducts
 
 app = Flask(__name__)
@@ -14,7 +14,8 @@ def testPage(pid):
 
 @app.route('/')
 def home():
-    return "fazer home"
+    homeP = Home(renderer = render_template)
+    return homeP.render()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Velho Geek</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='foghorn.css') }}">
+</head>
+
+<body>
+{% filter markdown %}
+#{{productName}}                    - {{productPrice}}
+
+{% endfilter %}
+</body>
+</html>
+
+

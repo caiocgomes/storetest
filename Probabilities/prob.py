@@ -1,4 +1,5 @@
 import MySQLdb as mdb
+from cacheable import cache
 
 alpha = 0.1
 beta  = 1.0
@@ -36,13 +37,12 @@ class Probability(object):
         result = self.cursor.fetchall()
         return float(result[0][0]) if len(result)> 0 else 0.0
 
-
+    @cache
     def FindProbabilityTotal(self,product,recom,discount,compra):
         query = "SELECT count from recomendation.totals where  prod = {product} and rec = {rec} and compra={compra} and discount={discount}".format(product=product,rec=recom,compra=compra,discount=discount)
         self.cursor.execute(query)
         result = self.cursor.fetchall()
         return float(result[0][0]) if len(result) > 0 else 0.0
-
 
 prob = Probability()
 

@@ -1,7 +1,7 @@
 from Page import Page
 from Products import allProducts, User
 import operator
-from random import uniform
+from numpy import log, exp
 
 def merge(dicts):
     items = []
@@ -10,10 +10,11 @@ def merge(dicts):
     return dict(items)
 
 class ProductPage(Page):
-    def __init__(self, product = None, *args, **kwargs):
+    def __init__(self, product = None, probCalculator = None, *args, **kwargs):
         super(ProductPage, self).__init__(*args, **kwargs)
         self.template = 'product.mkd'
         self.product = product
+        self.probCalculator = probCalculator
 
     def getData(self):
         user = User()
@@ -29,10 +30,13 @@ class ProductPage(Page):
             if rec.prodid != self.product.prodid:
                 for discount in [0.05, 0.10, 0.15]:
                     recd = rec.toDict()
-                    expReturn = self.getExpectedReturn(self.product.prodid, rec.prodid, user, discount)
-                    recd.update({'return': expReturn, 'printableRet': "{p:.2f}".format(p=expReturn), 'discount': int(100 * discount)})
+                    expReturn = self.getExpectedReturn(self.product, rec, user, discount)
+                    recd.update({'return': expReturn, 'printableRet': "{p:.8f}".format(p=expReturn), 'discount': int(100 * discount)})
                     recData.append(recd)
-        return sorted(recData, key = operator.itemgetter('return'), reverse=True)[0:5]
+        return sorted(recData, key = operator.itemgetter('return'), reverse=True)
 
-    def getExpectedReturn(self, prid, recid, user, discount = 0.05):
-        return uniform(0, 100)
+    def getExpectedReturn(self, prod, rec, user, discount = 0.05):
+        feats = {'age': user.ageGroup, 'sex': user.sex, 'inc': user.incomeGroup, 'edu': user.education}
+        buyProbability = 0.2 * self.probCalculator(feats, prod.prodid, rec.prodid, str(discount))
+        return exp(buyProbability * log((prod.price / (1 - discount) + rec.price) * (1-discount)) + (1-buyProbability) * log(prod.price))
+        #return buyProbability * ((prod.price / (1 - discount)+ rec.price) * (1-discount)) + (1-buyProbability) * (prod.price)

@@ -46,4 +46,3 @@ class Probability(object):
         result = self.cursor.fetchall()
         return float(result[0][0]) if len(result) > 0 else 0.0
 
-prob = Probability()

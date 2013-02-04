@@ -2,25 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Velho Geek</title>
+<title>Loja</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='foghorn.css') }}">
 </head>
 
 <body>
 {% filter markdown %}
 
-<h1> <i>GEEKSTORE</i> <br> &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  <small> A loja do Velho Geek </small></h1>
+<h1>Loja Virtual</h1>
 
 <h2> Produtos:</h2>
 
-<ul>
+<table style="width:120%;">
 {% for prod in products %}
-    <li>
-        <a href = "/product/{{prod.prodid}}"> {{prod.name}}</a>
-    </li>
+    <tr>
+        <th style="width:30%;"> <small>{{prod.category}}</small> </th>
+        <td> <small><a href = "/product/{{prod.prodid}}">{{prod.name}}</a></small> </td>
+        <td> <small>R$ {{prod.price}}.00</small> </td>
+    </tr>
 {% endfor %}
-</ul>
-
+</table>
 {% for i in [1,2,3,4] %}
 <br><p>
 {% endfor %}
